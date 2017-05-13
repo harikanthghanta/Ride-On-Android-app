@@ -1,0 +1,77 @@
+<!--<resources>
+
+    &lt;!&ndash; Base application theme. &ndash;&gt;
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">false</item>
+</style>
+
+<style name="AppTheme" parent="AppBaseTheme"></style>
+
+<style name="CustomWindowTitleBackground">
+    <item name="android:background">#323331</item>
+</style>
+
+<style name="CustomTheme" parent="android:Theme">
+    <item name="android:windowTitleSize">50sp</item>
+    <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+</style>
+
+<style name="TextViewFont" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+</style>
+
+<style name="TextViewForLabels" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:textStyle"> </item>
+    <item name="android:textSize">20sp</item>
+</style>
+
+<style name="TextViewForRememberMe" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:textStyle">italic</item>
+    <item name="android:textSize">16sp</item>
+</style>
+
+<style name="TextViewForList" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:padding">5sp</item>
+</style>
+
+<style name="EditTextViewFont" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+</style>
+
+<style name="Button" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:paddingLeft">5sp</item>
+    <item name="android:paddingRight">5sp</item>
+    <item name="android:paddingTop">5sp</item>
+    <item name="android:paddingBottom">5sp</item>
+    <item name="android:background">@layout/common_color_gradient</item>
+    <item name="android:textAppearance">@style/TextViewFont</item>
+    <item name="android:layout_height">40sp</item>
+    <item name="android:layout_width">274sp</item>
+    <item name="android:layout_gravity">center</item>
+</style>
+
+<style name="basicRelativeLayoutOverBackground">
+    <item name="android:layout_width">fill_parent</item>
+    <item name="android:layout_height">fill_parent</item>
+    <item name="android:paddingBottom">20sp</item>
+    <item name="android:paddingLeft">20sp</item>
+    <item name="android:paddingRight">20sp</item>
+    <item name="android:paddingTop">20sp</item>
+</style>
+
+</resources>

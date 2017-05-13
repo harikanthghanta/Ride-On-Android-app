@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent" android:layout_width="match_parent">
+
+ 	<item android:drawable="@layout/common_btn_released" android:state_pressed="true"/> 
+	<!-- pressed -->
+	<item android:drawable="@layout/common_btn_pressed" android:state_focused="true"/> 
+	<!-- focused -->
+ 	<item android:drawable="@layout/common_btn_pressed"/> 
+	<!-- default -->
+</selector>

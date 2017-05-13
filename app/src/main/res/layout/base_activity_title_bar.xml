@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="50sp"
+    android:background="@layout/common_color_gradient"
+    android:gravity="center_vertical" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="268dp"
+        android:layout_weight="0.20"
+        android:src="@drawable/icon" />
+
+    <TextView
+        android:id="@+id/myTitle"
+        android:layout_width="0dp"
+        android:layout_height="284dp"
+        android:layout_weight="0.80"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="This is my new title"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|normal" />
+
+</LinearLayout>

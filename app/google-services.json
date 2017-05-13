@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "163996918875",
+    "firebase_url": "https://charan-test.firebaseio.com",
+    "project_id": "charan-test",
+    "storage_bucket": "charan-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163996918875:android:1c9df65b009174be",
+        "android_client_info": {
+          "package_name": "com.android.charan.shareride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163996918875-4bv24d8d3sat5tn8gsrlhn6888lfmb2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.charan.shareride",
+            "certificate_hash": "728fad68eff691111b2898b5b3b156b3132077df"
+          }
+        },
+        {
+          "client_id": "163996918875-j2qkfs1puqqtg2eb32kdpq8ptdhqls77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.charan.shareride",
+            "certificate_hash": "e6699ee5431f70c05093e0045239474af7df0712"
+          }
+        },
+
+        {
+          "client_id": "163996918875-jpnac3ceh77dthg8p397d40oms27mg5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAotusagd3duMm4TwatUVBji_sLiU_64CM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163996918875-jpnac3ceh77dthg8p397d40oms27mg5l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

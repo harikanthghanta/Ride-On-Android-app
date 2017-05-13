@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ShareRide</string>
+    <string name="lbl_ride_name">Name Your Ride</string>
+    <string name="lbl_source">Starting point</string>
+    <string name="lbl_destination">Destination</string>
+    <string name="lbl_date_of_ride">Date of Your Ride</string>
+    <string name="lbl_start_time_of_ride">Time</string>
+    <!--<string name="lbl_source">Starting point</string>-->
+    <string name="createridebtn">Create a Ride</string>
+    <string name="showMyRides">My Rides</string>
+    <string name="action_settings">Settings</string>
+    <string name="sign_out">signout</string>
+</resources>
