@@ -95,10 +95,10 @@ public  class CreateRide extends Activity{
             public void onClick(View v) {
                 boolean valid = validateUserInputAndCallAsyncTask();
                 if(valid) {
-
+                    String id = mMessagesDatabaseReference.push().getKey();
                      rideDetails = new RideDetails(mUsername, RideName.getText().toString(),
                             RideSource.getText().toString(),
-                            RideDestination.getText().toString(), startDate.getTime());
+                            RideDestination.getText().toString(), startDate.getTime(),id);
                     //System.out.print(startDate.toString());
 
                        mMessagesDatabaseReference.push().setValue(rideDetails);
@@ -176,16 +176,16 @@ public  class CreateRide extends Activity{
         int minute = ((TimePicker) findViewById(R.id.createRideTimePicker)).getCurrentMinute();
 
         Calendar calendar = Calendar.getInstance();
-        System.out.println(day + " " + month + " " + year + " " + hour + " : " + minute);  //6 4 2013
+       // System.out.println(day + " " + month + " " + year + " " + hour + " : " + minute);  //6 4 2013
         calendar.set(year, month, day, hour, minute);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = formatter.format(calendar.getTime());
-        System.out.println("entered:" + formattedDate);
+        //System.out.println("entered:" + formattedDate);
 
         Calendar now = Calendar.getInstance();
         formattedDate = formatter.format(now.getTime());
-        System.out.println("now:" + formattedDate);
+        //System.out.println("now:" + formattedDate);
 
         if(calendar.before(now)){
             return true;
@@ -238,7 +238,7 @@ public  class CreateRide extends Activity{
         protected Void doInBackground(Void... params) {
 
             //TODO: get from the webservice
-            new EmailDispatcher().sendEmailToAll(list, r);
+            //new EmailDispatcher().sendEmailToAll(list, r);
             return null;
             //send email
 

@@ -21,7 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFireBaseUser;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
+    private DatabaseReference mDatabaseReference,mTest;
     private String mUsername;
     private String mEmail;
     private String  uuid;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("users");
+
 
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(RC_SIGN_IN == requestCode){
             if (resultCode == RESULT_OK){
+
                 mFireBaseUser = mFirebaseAuth.getCurrentUser();
                 System.out.println(mFireBaseUser);
                 uuid = mFireBaseUser.getUid();

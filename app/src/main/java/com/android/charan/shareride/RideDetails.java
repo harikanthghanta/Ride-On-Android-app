@@ -11,20 +11,22 @@ public class RideDetails {
     private String rideName;
     private String source;
     private String destination;
-    private String User;
+    private String user;
     /*private String date;*/
     private long date;
+    private String id;
 
     public RideDetails(){
 
     }
 
-    public RideDetails(String u, String r,String s,String d, long da){
+    public RideDetails(String u, String r,String s,String d, long da, String id){
         rideName = r;
         source = s;
         destination = d;
-        User = u;
+        user = u;
         date = da;
+        this.id = id;
 
 
     }
@@ -42,10 +44,18 @@ public class RideDetails {
     }
 
     public String getUser() {
-        return User;
+        return user;
     }
 
     public long getDate() {
         return date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

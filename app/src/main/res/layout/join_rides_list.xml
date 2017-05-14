@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants" >
+
+    <CheckBox
+        android:id="@+id/isJoined"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".15"
+        android:button="@android:drawable/btn_star" 
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".75"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textVal"
+            style="@style/TextViewForList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <TextView
+            android:id="@+id/textValDateTime"
+            style="@style/TextViewForList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/img_start"
+        style="@style/Button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight=".10"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/button_start" />
+
+</LinearLayout>
