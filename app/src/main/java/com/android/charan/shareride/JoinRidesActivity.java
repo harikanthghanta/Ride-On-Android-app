@@ -16,6 +16,11 @@ import com.android.charan.shareride.customadapters.CustomEntry;
 import com.android.charan.shareride.tabpanel.MenuConstants;
 import com.android.charan.shareride.tabpanel.MyTabHostProvider;
 import com.android.charan.shareride.tabpanel.TabView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import android.app.Activity;
@@ -28,6 +33,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.UserManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +53,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class JoinRidesActivity extends BaseActivity {
 
+	private FirebaseDatabase mFirebaseDatabase;
+	private DatabaseReference mDatabaseReference;
+
 	List<RideDetails> rideList = new ArrayList<RideDetails>();
 	ArrayList<CustomEntry> rideEntry = new ArrayList<CustomEntry>();
 	private LinearLayout progressBar;
@@ -65,9 +74,9 @@ public class JoinRidesActivity extends BaseActivity {
 		setContentView(tabView.render());			
 
 		progressBar = (LinearLayout) findViewById(R.id.Spinner);
-		progressBar.setVisibility(View.VISIBLE);
+		progressBar.setVisibility(View.INVISIBLE);
 
-		//new GetUpcomingRidesTask().execute();
+		new GetUpcomingRidesTask().execute();
 	
 	}
 
@@ -271,59 +280,86 @@ public class JoinRidesActivity extends BaseActivity {
 		final TextView myTitleText = (TextView)findViewById(R.id.myTitle);
 		myTitleText.setText("Join Ride");
 	}
-//
-//	//AsynTask for getting the list of rides
-//	public class GetUpcomingRidesTask extends AsyncTask<Void,Void,List<Ride>> {
-//		Exception error;
-//
-//		protected List<Ride> doInBackground(Void... params) {
-//			return RidesManager.viewUpcomingRides();
-//		}
-//
-//		protected void onPostExecute(List<Ride> result) {
-//			if(error != null){
-//
-//			} else {
-//				rideList = result;
-//				new GetJoinedRidesForUser().execute();
-//			}
-//		}
-//	}
-//
-//	//AsynTask for getting the list of rides
-//	public class GetJoinedRidesForUser extends AsyncTask<Void,Void,List<Ride>> {
-//		Exception error;
-//
-//		protected List<Ride> doInBackground(Void... params) {
-//			return RidesManager.viewMyUpcomingRides(username);
-//		}
-//
-//		protected void onPostExecute(List<Ride> result) {
-//			myJoinedRidesList = result;
-//			List<CustomEntry> temp = new ArrayList<CustomEntry>();
-//			for(Ride r:rideList){
-//				if(myJoinedRidesList.contains(r)){
-//					temp.add(new CustomEntry(r.getId(),r.getStartTime(),r.getName(), true));
-//				}else{
-//					temp.add(new CustomEntry(r.getId(),r.getStartTime(),r.getName(), false));
-//				}
-//			}
-//			for(CustomEntry r:temp){
-//				if(r.isJoined()){
-//					rideEntry.add(r);
-//				}
-//			}
-//			for(CustomEntry r:temp){
-//				if(!r.isJoined()){
-//					rideEntry.add(r);
-//				}
-//			}
-//
-//
-//			displayListView();
-//		}
-//	}
-//
+
+	//AsynTask for getting the list of rides
+	public class GetUpcomingRidesTask extends AsyncTask<Void,Void,List<RideDetails>> {
+		Exception error;
+
+		protected List<RideDetails> doInBackground(Void... params) {
+			mDatabaseReference.child("rides").addListenerForSingleValueEvent(
+					new ValueEventListener() {
+
+						@Override
+						public void onDataChange(DataSnapshot dataSnapshot) {
+
+							// Get user value
+
+							for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+								// TODO: handle the post
+								RideDetails rides = postSnapshot.getValue(RideDetails.class);
+								rideList.add(rides);
+
+							}
+
+
+						}
+						@Override
+						public void onCancelled(DatabaseError databaseError) {
+							// Getting Post failed, log a message
+							//Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+							// ...
+						}
+					});
+			return rideList;
+		}
+
+		protected void onPostExecute(List<RideDetails> result) {
+			if(error != null){
+
+			} else {
+				rideList = result;
+				for (RideDetails r : rideList){
+					System.out.println(r.getRideName());
+				}
+				//new GetJoinedRidesForUser().execute();
+			}
+		}
+	}
+
+	//AsynTask for getting the list of rides
+	/*public class GetJoinedRidesForUser extends AsyncTask<Void,Void,List<Ride>> {
+		Exception error;
+
+		protected List<Ride> doInBackground(Void... params) {
+			return RidesManager.viewMyUpcomingRides(username);
+		}
+
+		protected void onPostExecute(List<Ride> result) {
+			myJoinedRidesList = result;
+			List<CustomEntry> temp = new ArrayList<CustomEntry>();
+			for(Ride r:rideList){
+				if(myJoinedRidesList.contains(r)){
+					temp.add(new CustomEntry(r.getId(),r.getStartTime(),r.getName(), true));
+				}else{
+					temp.add(new CustomEntry(r.getId(),r.getStartTime(),r.getName(), false));
+				}
+			}
+			for(CustomEntry r:temp){
+				if(r.isJoined()){
+					rideEntry.add(r);
+				}
+			}
+			for(CustomEntry r:temp){
+				if(!r.isJoined()){
+					rideEntry.add(r);
+				}
+			}
+
+
+			displayListView();
+		}
+	}
+*/
 //	protected void earlyRide() {
 //		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 //		alertDialog.setMessage("You are early! Scheduled ride is yet to start!");
