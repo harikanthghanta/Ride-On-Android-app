@@ -2,6 +2,7 @@ package com.android.charan.shareride.tabpanel;
 
 import com.android.charan.shareride.CreateRide;
 import com.android.charan.shareride.JoinRidesActivity;
+import com.android.charan.shareride.MainActivity;
 import com.android.charan.shareride.R;
 
 import android.app.Activity;
@@ -44,7 +45,7 @@ public class MyTabHostProvider extends TabHostProvider {
 		tabView.setBackgroundID(R.layout.common_color_gradient);
 		
 		joinRidesTab = createTab(category, 
-				JoinRidesActivity.class,
+				MainActivity.class,
 				R.drawable.menu_btn_join_rides, 
 				R.drawable.menu_btn_join_rides_selected, 
 				MenuConstants.JOIN_RIDES,
@@ -107,6 +108,7 @@ public class MyTabHostProvider extends TabHostProvider {
 		tab.setSelectedBtnGradient(gradientDrawable);
 		tab.setIntent(new Intent(context, activity));
 		tab.setSelected(isSelected);
+
 
 		return tab;
 	}

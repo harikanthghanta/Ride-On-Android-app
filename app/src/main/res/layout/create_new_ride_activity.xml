@@ -141,6 +141,7 @@
             </LinearLayout>
             <!-- Create New Ride Form Ends -->
         </ScrollView>
+
     </RelativeLayout>
 
 </RelativeLayout>

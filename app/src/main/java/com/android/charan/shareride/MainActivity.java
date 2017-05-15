@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mCreateRide = (Button)findViewById(R.id.CreateRide);
         mShowMyRide = (Button)findViewById(R.id.ShowMyRide);
 
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("users");
@@ -85,6 +86,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,CreateRide.class);
+                Bundle b = new Bundle();
+                b.putString("user",mFireBaseUser.getEmail());
+                i.putExtras(b);
+                startActivity(i);
+            }
+        });
+        mShowMyRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,JoinRidesActivity.class);
                 Bundle b = new Bundle();
                 b.putString("user",mFireBaseUser.getEmail());
                 i.putExtras(b);

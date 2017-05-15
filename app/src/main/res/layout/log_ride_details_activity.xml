@@ -1,0 +1,190 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <RelativeLayout style="@style/basicRelativeLayoutOverBackground" >
+
+        <LinearLayout
+            android:id="@+id/logRideDetailsSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/TextViewFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logging Ride Details..." >
+            </TextView>
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true" >
+            </ProgressBar>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:id="@+id/logRideDetailsForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewLogRideError"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="An error occured."
+                    android:textColor="#ff0000" />
+
+                <TextView
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Just a minute!" />
+
+                <!-- Ride Details -->
+
+                <TextView
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ride Name" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsRideName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <!-- Distance Covered -->
+
+                <TextView
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Distance Covered" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsDistanceCovered"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <!-- Time of ride -->
+
+                <TextView
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time of Ride" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsRideTime"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <!-- Average Speed -->
+
+                <TextView
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Average Speed" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsAverageSpeed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <!-- Heart Rate -->
+
+                <TextView
+                    android:id="@+id/textViewLogRideEnterHeartRateLabel"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_enter_heart_rate" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsHeartRate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+                <!-- Cadence -->
+
+                <TextView
+                    android:id="@+id/textViewLogRideEnterCadenceLabel"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_enter_cadence" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsCadence"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+                <!-- Calories Burned -->
+
+                <TextView
+                    android:id="@+id/textViewLogRideEnterCaloriesBurnedLabel"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_enter_calories_burned" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsCaloriesBurned"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+                <!-- Post to blog -->
+
+                <TextView
+                    android:id="@+id/textViewLogRidePostYourExperienceToBlog"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_post_your_experience_to_blog" />
+
+                <EditText
+                    android:id="@+id/textViewLogRideDetailsExperience"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="top|left"
+                    android:inputType="textCapSentences"
+                    android:singleLine="false" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    style="@style/Button"
+                    android:layout_margin="25dp"
+                    android:text="Submit!!" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

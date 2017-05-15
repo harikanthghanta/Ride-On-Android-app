@@ -1,12 +1,20 @@
 package com.android.charan.shareride;
 
 //import java.awt.Image;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 //import javax.swing.text	.Position;
 
+import com.android.charan.shareride.Util.EmailDispatcher;
+import com.android.charan.shareride.Util.EmailDispatcherJoined;
+import com.android.charan.shareride.Util.EventsCalendar;
+import com.android.charan.shareride.Util.Utils;
 import com.android.charan.shareride.tabpanel.MenuConstants;
 import com.android.charan.shareride.tabpanel.MyTabHostProvider;
 import com.android.charan.shareride.tabpanel.TabView;
@@ -19,7 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +57,7 @@ public class JoinRidesActivity extends BaseActivity {
 	private FirebaseAuth mFirebaseAuth;
 	private String currentUserid;
 
-// commented on request
+
 	List<RideDetails> rideList = new ArrayList<RideDetails>();
 	ArrayList<RideDetailsMap> rideEntry = new ArrayList<RideDetailsMap>();
 	private LinearLayout progressBar;
@@ -55,7 +67,7 @@ public class JoinRidesActivity extends BaseActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	
+
 		super.onCreate(savedInstanceState);
 		//Draw menu
 		tabProvider = new MyTabHostProvider(JoinRidesActivity.this);
@@ -75,7 +87,7 @@ public class JoinRidesActivity extends BaseActivity {
 		new GetUpcomingRidesTask().execute();
 		//GetUpcomingRidesTask();
 		//TestTask();
-	//	displayListView();
+		//	displayListView();
 
 	}
 
@@ -130,7 +142,7 @@ public class JoinRidesActivity extends BaseActivity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+									int position, long id) {
 
 
 //				Toast.makeText(getApplicationContext(), " Clicked " , Toast.LENGTH_SHORT).show();
@@ -141,11 +153,11 @@ public class JoinRidesActivity extends BaseActivity {
 				if (positionView != ListView.INVALID_POSITION) {
 					//start view activity
 					selectedRide = rideList.get(positionView);
-					/*Intent i = new Intent(getApplicationContext(), ViewRideDetailsActivity.class);
+					Intent i = new Intent(getApplicationContext(), ViewRideDetailsActivity.class);
 					i.putExtra("Caller", Caller);
 					i.putExtra("Ride", selectedRide);
 
-					startActivity(i);*/
+					startActivity(i);
 				}else{
 					Toast toast = Toast.makeText(getApplicationContext(), "An error occured.", Toast.LENGTH_SHORT);
 					TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
@@ -190,16 +202,16 @@ public class JoinRidesActivity extends BaseActivity {
 			holder.start = (ImageButton) v.findViewById(R.id.img_start);
 			final RideDetailsMap custom = entries.get(position);
 			if (custom != null) {
-				/*Date rideDate = Utils.convertStringToDate(custom.getStartDate());
+				Date rideDate = Utils.convertStringToDate(custom.getRideDetails().getDate());
 
 				String[] formats = new String[] {"dd-MMM-yy", "HH:mm"};
 				SimpleDateFormat dfForRideDate = new SimpleDateFormat(formats[0], Locale.US);
 				SimpleDateFormat dfForRideTime = new SimpleDateFormat(formats[1], Locale.US);
 
-*/
+
 				holder.item1.setText(custom.getRideDetails().getRideName());
-				/*holder.textFieldDateTime.setText(dfForRideDate.format(rideDate) + "   " + dfForRideTime.format(rideDate));*/
-				holder.textFieldDateTime.setText(String.valueOf(custom.getRideDetails().getDate()));
+				holder.textFieldDateTime.setText(dfForRideDate.format(rideDate) + "   " + dfForRideTime.format(rideDate));
+				/*holder.textFieldDateTime.setText(String.valueOf(custom.getRideDetails().getDate()));*/
 				holder.item2.setChecked(custom.isJoin());
 				if(custom.isJoin()){
 					holder.item1.setTypeface(null, Typeface.BOLD);
@@ -210,7 +222,7 @@ public class JoinRidesActivity extends BaseActivity {
 					holder.start.setImageResource(R.drawable.button_start_disabled);
 				}
 			}
-			/*holder.start.setOnClickListener(mStartButtonClickListener);*/
+			holder.start.setOnClickListener(mStartButtonClickListener);
 			holder.item2.setOnCheckedChangeListener(mStarCheckedChangeListener);
 			//			}
 			//			else
@@ -219,36 +231,39 @@ public class JoinRidesActivity extends BaseActivity {
 			return v;
 		}
 
-//		private OnClickListener mStartButtonClickListener = new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Date currentTimestamp = new Date();
-//				Calendar cal = Calendar.getInstance();
-//				cal.setTime(currentTimestamp);
-//				cal.add(Calendar.HOUR, 1);
-//				currentTimestamp = cal.getTime();
-//
-//				long currTime = Utils.convertDateToString(currentTimestamp);
-//				long rideTime;
-//
-//				final ListView listView = (ListView) findViewById(R.id.listView1);
-//				final int position = listView.getPositionForView(v);
-//				if (position != ListView.INVALID_POSITION) {
-//					rideTime = rideList.get(position).getStartTime();
-//					if(currTime < rideTime )
-//					{
-//						earlyRide();
-//					}
-//					else
-//					{
-//						Intent i = new Intent(getApplicationContext(), RecordRideStatsActivity.class);
-//						i.putExtra("Ride", rideList.get(position));
-//						startActivity(i);
-//					}
-//
-//				}
-//			}
-//		};
+				private View.OnClickListener mStartButtonClickListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Date currentTimestamp = new Date();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(currentTimestamp);
+				cal.add(Calendar.HOUR, 1);
+				currentTimestamp = cal.getTime();
+
+				long currTime = Utils.convertDateToString(currentTimestamp);
+				long rideTime;
+
+				final ListView listView = (ListView) findViewById(R.id.listView1);
+				final int position = listView.getPositionForView(v);
+				if (position != ListView.INVALID_POSITION) {
+					rideTime = rideList.get(position).getDate();
+					if(currTime < rideTime )
+					{
+						//earlyRide();
+						Intent i = new Intent(getApplicationContext(), RecordRideStatsActivity.class);
+						i.putExtra("Ride", rideList.get(position));
+						startActivity(i);
+					}
+					else
+					{
+						Intent i = new Intent(getApplicationContext(), RecordRideStatsActivity.class);
+						i.putExtra("Ride", rideList.get(position));
+						startActivity(i);
+					}
+
+				}
+			}
+		};
 //
 		private OnCheckedChangeListener mStarCheckedChangeListener = new OnCheckedChangeListener() {
 			@Override
@@ -267,7 +282,7 @@ public class JoinRidesActivity extends BaseActivity {
 					if(isChecked){
 						new JoinRideTask().execute();
 					}else{
-						//new UnJoinRideTask().execute();
+						new UnJoinRideTask().execute();
 					}
 				}
 			}
@@ -292,6 +307,7 @@ public class JoinRidesActivity extends BaseActivity {
 							// TODO: handle the post
 							RideDetails rides = postSnapshot.getValue(RideDetails.class);
 							rideList.add(rides);
+							System.out.println(rideList.size());
 
 						}
 
@@ -306,34 +322,6 @@ public class JoinRidesActivity extends BaseActivity {
 				});
 		new GetJoinedRidesForUser().execute();
 
-
-	}
-	public void TestTask(){
-		mDatabaseReference.orderByChild("rideName").equalTo("Did").addListenerForSingleValueEvent(
-				new ValueEventListener() {
-
-					@Override
-					public void onDataChange(DataSnapshot dataSnapshot) {
-
-						// Get user value
-
-						for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-							// TODO: handle the post
-							RideDetails rides = postSnapshot.getValue(RideDetails.class);
-							//System.out.println(rides.getDestination());
-
-						}
-
-
-
-					}
-					@Override
-					public void onCancelled(DatabaseError databaseError) {
-						// Getting Post failed, log a message
-						//Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-						// ...
-					}
-				});
 
 	}
 
@@ -356,6 +344,7 @@ public class JoinRidesActivity extends BaseActivity {
 								// TODO: handle the post
 								RideDetails rides = postSnapshot.getValue(RideDetails.class);
 								rideList.add(rides);
+								System.out.println(rideList.size());
 
 							}
 
@@ -400,8 +389,8 @@ public class JoinRidesActivity extends BaseActivity {
 							for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 								// TODO: handle the post
 								RideMap jointRides = postSnapshot.getValue(RideMap.class);
-								myJoinedRidesList1.add(jointRides.getRideId());
-								//System.out.println(jointRides.getRideId());
+								myJoinedRidesList.add(jointRides.getRideId());
+								System.out.println(jointRides.getRideId());
 
 							}
 
@@ -416,11 +405,11 @@ public class JoinRidesActivity extends BaseActivity {
 						}
 					});
 
-			return myJoinedRidesList1;
+			return myJoinedRidesList;
 		}
 
 		protected void onPostExecute(List<String> result) {
-			myJoinedRidesList = result;
+			//myJoinedRidesList = result;
 			System.out.println(myJoinedRidesList.size());
 			List<RideDetailsMap> temp = new ArrayList<RideDetailsMap>();
 			for(RideDetails r:rideList){
@@ -446,15 +435,15 @@ public class JoinRidesActivity extends BaseActivity {
 			displayListView();
 		}
 	}
-//	protected void earlyRide() {
-//		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-//		alertDialog.setMessage("You are early! Scheduled ride is yet to start!");
-//		alertDialog.setButton( Dialog.BUTTON_NEGATIVE, "Ok", new DialogInterface.OnClickListener()    {
-//			public void onClick(DialogInterface dialog, int which) {
-//				dialog.cancel();
-//			}});
-//		alertDialog.show();
-//	}
+		protected void earlyRide() {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setMessage("You are early! Scheduled ride is yet to start!");
+		alertDialog.setButton( Dialog.BUTTON_NEGATIVE, "Ok", new DialogInterface.OnClickListener()    {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}});
+		alertDialog.show();
+	}
 	//AsynTask for joining the rides
 	public class JoinRideTask extends AsyncTask<Void,Void,String> {
 		Exception error;
@@ -472,6 +461,9 @@ public class JoinRidesActivity extends BaseActivity {
 
 		protected void onPostExecute(String result) {
 			if(result.equalsIgnoreCase("Success")){
+				List<String> Userlist = new ArrayList<String>();
+				Userlist.add(mFirebaseAuth.getCurrentUser().getEmail());
+				new SendEmailTask(selectedRideSave,Userlist).execute();
 				Toast.makeText(getApplicationContext(), "Joined the ride successfully." , Toast.LENGTH_SHORT).show();
 				//					selectedStar.setSelected(true);
 			}else{
@@ -481,117 +473,133 @@ public class JoinRidesActivity extends BaseActivity {
 				toast.show();
 			}
 			//change order in rideEntry
-			/*ArrayList<RideDetailsMap> temp = new ArrayList<RideDetailsMap>();
+			ArrayList<RideDetailsMap> temp = new ArrayList<RideDetailsMap>();
 			temp.add(rideEntry.get(selectedRidePosition));
-			temp.get(0).setJoined(true);
+			temp.get(0).setJoin(true);
 			for(RideDetailsMap r:rideEntry){
-				if(!selectedRideSave.getId().equals(r.getRideid())){
+				if(!selectedRideSave.getId().equals(r.getRideDetails().getId())){
 					temp.add(r);
 				}
 			}
 			rideEntry = temp;
-			new GetLoggedinUserTask(true).execute();
-			displayListView();*/
+			new AddToCalendarTask().execute();
+			displayListView();
 		}
 	}
+
+	private class AddToCalendarTask extends AsyncTask<Void, Void, Void> {
+
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			try{
+				EventsCalendar.pushAppointmentsToCalender(JoinRidesActivity.this, selectedRideSave, 0, true, true,mFirebaseAuth.getCurrentUser().getDisplayName(),
+																														mFirebaseAuth.getCurrentUser().getEmail());
+				//Toast.makeText(getApplicationContext(), "Event added to Calendar.", Toast.LENGTH_SHORT).show();
+			}catch(Exception e){
+				//Toast.makeText(getApplicationContext(), "Please configure your Calendar to get ride notifications.", Toast.LENGTH_SHORT).show();
+			}
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+		}
+
+	}
 //
-//	private class GetLoggedinUserTask extends AsyncTask<Void, Void, User> {
-//		Exception error;
-//		boolean isJoin;
-//		GetLoggedinUserTask(boolean isJoin){
-//			this.isJoin = isJoin;
-//		}
-//
-//		@Override
-//		protected User doInBackground(Void... arg0) {
-//			User u = UsersManager.getUser(username);
-//			return u;
-//		}
-//
-//		protected void onPostExecute(User result) {
-//			if(isJoin){
-//				new AddToCalendarTask(result).execute();
-//			}else{
-//				new DeleteFromCalendar(result).execute();
-//			}
-//		}
-//	}
-//
-//
-//	private class AddToCalendarTask extends AsyncTask<Void, Void, Void> {
-//		User user;
-//		AddToCalendarTask(User user){
-//			this.user = user;
-//		}
-//
-//		@Override
-//		protected Void doInBackground(Void... arg0) {
-//			try{
-//				EventsCalendar.pushAppointmentsToCalender(JoinRidesActivity.this, selectedRideSave, 0, true, true,user.getName(),user.getEmail());
-//				//Toast.makeText(getApplicationContext(), "Event added to Calendar.", Toast.LENGTH_SHORT).show();
-//			}catch(Exception e){
-//				//Toast.makeText(getApplicationContext(), "Please configure your Calendar to get ride notifications.", Toast.LENGTH_SHORT).show();
-//			}
-//			return null;
-//		}
-//
-//		protected void onPostExecute(Void result) {
-//		}
-//
-//	}
-//
-//	private class DeleteFromCalendar extends AsyncTask<Void, Void, Void> {
-//		User user;
-//		DeleteFromCalendar(User user){
-//			this.user = user;
-//		}
-//
-//		@Override
-//		protected Void doInBackground(Void... arg0) {
-//			try{
-//				EventsCalendar.removeAppointmentsFromCalender(JoinRidesActivity.this, selectedRideSave, 0, user.getName(),user.getEmail());
-//				//Toast.makeText(getApplicationContext(), "Event removed from Calendar.", Toast.LENGTH_SHORT).show();
-//			}catch(Exception e){
-//				//Toast.makeText(getApplicationContext(), "Event added to Calendar.", Toast.LENGTH_SHORT).show();
-//			}
-//			return null;
-//		}
-//
-//		protected void onPostExecute(Void result) {
-//		}
-//
-//	}
-//
+	private class DeleteFromCalendar extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			try{
+				EventsCalendar.removeAppointmentsFromCalender(JoinRidesActivity.this, selectedRideSave, 0,mFirebaseAuth.getCurrentUser().getDisplayName(),
+																									mFirebaseAuth.getCurrentUser().getEmail());
+				//Toast.makeText(getApplicationContext(), "Event removed from Calendar.", Toast.LENGTH_SHORT).show();
+			}catch(Exception e){
+				//Toast.makeText(getApplicationContext(), "Event added to Calendar.", Toast.LENGTH_SHORT).show();
+			}
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+		}
+
+	}
+
 //	//AsynTask for joining the rides
-//	public class UnJoinRideTask extends AsyncTask<Void,Void,String> {
-//		Exception error;
-//
-//		protected String doInBackground(Void... params) {
-//			return  RidesManager.deleteParticipantToRide(selectedRideSave.getId(), username);
-//		}
-//
-//		protected void onPostExecute(String result) {
-//			if(result.equalsIgnoreCase("Success")){
-//				Toast.makeText(getApplicationContext(), "Unjoined the ride successfully." , Toast.LENGTH_SHORT).show();
-//				//							selectedStar.setSelected(true);
-//			}else{
-//				Toast toast = Toast.makeText(getApplicationContext(), "An error occured.", Toast.LENGTH_SHORT);
-//				TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-//				v.setTextColor(getResources().getColor(R.color.red));
-//				toast.show();
-//			}
-//			//change order in rideEntry
-//			ArrayList<RideDetailsMap> temp = new ArrayList<RideDetailsMap>();
-//
-//			for(RideDetailsMap r:rideEntry){
-//				if(!selectedRideSave.getId().equals(r.getRideid())){
-//					temp.add(r);
-//				}
-//			}
-//			temp.add(rideEntry.get(selectedRidePosition));
-//			temp.get(temp.size()-1).setJoined(false);
-//			rideEntry = temp;
-//			displayListView();
-//		}
-//	}
+	public class UnJoinRideTask extends AsyncTask<Void,Void,String> {
+		Exception error;
+
+		protected String doInBackground(Void... params) {
+			RideMap rideMap = new RideMap();
+			rideMap.setRideId(selectedRideSave.getId());
+			rideMap.setUserId(currentUserid);
+			maddId.orderByChild("userId").equalTo(currentUserid).addListenerForSingleValueEvent(
+					new ValueEventListener(){
+						@Override
+						public void onDataChange(DataSnapshot dataSnapshot) {
+							for(DataSnapshot d:dataSnapshot.getChildren()){
+								d.getRef().removeValue();
+							}
+						}
+
+						@Override
+						public void onCancelled(DatabaseError databaseError) {
+
+						}
+					}
+			);
+
+			return  "Success";
+		}
+
+		protected void onPostExecute(String result) {
+			if(result.equalsIgnoreCase("Success")){
+				Toast.makeText(getApplicationContext(), "Unjoined the ride successfully." , Toast.LENGTH_SHORT).show();
+				//							selectedStar.setSelected(true);
+			}else{
+				Toast toast = Toast.makeText(getApplicationContext(), "An error occured.", Toast.LENGTH_SHORT);
+				TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+				v.setTextColor(getResources().getColor(R.color.red));
+				toast.show();
+			}
+			//change order in rideEntry
+			ArrayList<RideDetailsMap> temp = new ArrayList<RideDetailsMap>();
+
+			for(RideDetailsMap r:rideEntry){
+				if(!selectedRideSave.getId().equals(r.getRideDetails().getId())){
+
+					temp.add(r);
+				}
+			}
+			temp.add(rideEntry.get(selectedRidePosition));
+			temp.get(temp.size()-1).setJoin(false);
+			rideEntry = temp;
+			new DeleteFromCalendar().execute();
+			displayListView();
+		}
+	}
+	private class SendEmailTask extends AsyncTask<Void, Void, Void> {
+		Exception error;
+		RideDetails r;
+		List<String> list;
+
+
+		SendEmailTask(RideDetails ride,List<String> list){
+			r = ride;
+			this.list = list;
+		}
+
+		protected Void doInBackground(Void... params) {
+
+			//TODO: get from the webservice
+			new EmailDispatcherJoined().sendEmailToAll(list, r);
+			return null;
+			//send email
+
+		}
+
+		protected void onPostExecute(RideDetails result) {
+		}
+	}
 }

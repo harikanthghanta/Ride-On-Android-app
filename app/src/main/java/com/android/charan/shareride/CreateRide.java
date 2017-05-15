@@ -29,6 +29,8 @@ import com.google.android.gms.location.places.Places;
 
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +50,8 @@ public  class CreateRide extends Activity{
     private Button BtnCreateRide;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFireBaseUser;
     private EditText RideName;
     private EditText RideSource;
     private EditText RideDestination;
@@ -65,12 +69,13 @@ public  class CreateRide extends Activity{
         setContentView(R.layout.activity_create_ride);
 
         Bundle b = getIntent().getExtras();
-        mUsername = b.getString("user");
+        //mUsername = b.getString("user");
 
-
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("rides");
         userref = mFirebaseDatabase.getReference().child("users");
+        mUsername = mFirebaseAuth.getCurrentUser().getDisplayName();
 
         BtnCreateRide = (Button) findViewById(R.id.btnCreateRide);
         RideName = (EditText) findViewById(R.id.textViewCreateRideRideName);
@@ -80,7 +85,7 @@ public  class CreateRide extends Activity{
 
 
         day = dPicker.getDayOfMonth();
-        month = dPicker.getMonth()+1;
+        month = dPicker.getMonth();
         year = dPicker.getYear();
 
         int hour = ((TimePicker) findViewById(R.id.createRideTimePicker)).getCurrentHour();
@@ -238,7 +243,7 @@ public  class CreateRide extends Activity{
         protected Void doInBackground(Void... params) {
 
             //TODO: get from the webservice
-            //new EmailDispatcher().sendEmailToAll(list, r);
+            new EmailDispatcher().sendEmailToAll(list, r);
             return null;
             //send email
 

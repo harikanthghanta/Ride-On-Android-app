@@ -1,6 +1,7 @@
 package com.android.charan.shareride.tabpanel;
 
 import com.android.charan.shareride.R;
+import com.android.charan.shareride.RecordRideStatsActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,6 +23,7 @@ public class Tab {
 
 	private final Activity context;
 	private Intent intent;
+
 
 	private View view;
 	private Button btn;
@@ -153,7 +155,7 @@ public class Tab {
 						if (requestCode != -1) {
 							// This will start activity for result
 						} else {	
-							/*if(context.getClass().getSimpleName().equalsIgnoreCase(RecordRideStatsActivity.class.getSimpleName())) {
+							if(context.getClass().getSimpleName().equalsIgnoreCase(RecordRideStatsActivity.class.getSimpleName())) {
 								AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 								alertDialog.setMessage("Do you want to stop recording the ride?");
 								alertDialog.setButton( Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
@@ -172,7 +174,7 @@ public class Tab {
 								context.startActivity(intent);
 								context.overridePendingTransition(0, 0);
 								context.finish();								
-							}*/
+							}
 						}
 					} else if (dialog != null) {
 						dialog.show();

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <RelativeLayout style="@style/basicRelativeLayoutOverBackground" >
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewRecordRideDetailsRideName"
+                    style="@style/TextViewForLabels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                	<Chronometer
+                        android:id="@+id/chronometer"
+                        style="@style/TextViewFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="#9CD020"
+                        android:textSize="80sp" />
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp" >
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                        <ImageButton
+                            android:id="@+id/btnPause"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="40dp"
+                            android:background="@android:color/transparent"
+							android:layout_width="80dp"
+            				android:layout_height="80dp"
+     						android:scaleType="centerInside"
+                            android:src="@drawable/btn_pause_new" />
+
+                        <ImageButton
+                            android:id="@+id/btnPlay"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="40dp"
+                            android:background="@android:color/transparent"
+							android:layout_width="80dp"
+            				android:layout_height="80dp"
+     						android:scaleType="centerInside"
+     						android:src="@drawable/btn_play_new" />
+       
+                        <!--  
+                        <ImageButton
+                            android:id="@+id/btnPlayDisable"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="40dp"
+                            android:background="@android:color/transparent"
+							android:layout_width="80dp"
+            				android:layout_height="80dp"
+     						android:scaleType="centerInside"
+     						android:src="@drawable/button_start_disabled" />
+                        -->
+                        
+                        
+                    </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnStop"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/transparent"
+						android:layout_width="80dp"
+            			android:layout_height="80dp"
+     					android:scaleType="centerInside"
+                        android:src="@drawable/btn_stop_new" />
+                    
+                    <ImageButton
+                        android:id="@+id/btnStopDisable"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/transparent"
+						android:layout_width="80dp"
+            			android:layout_height="80dp"
+     					android:scaleType="centerInside"
+                        android:src="@drawable/btn_stop_new_disabled" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
+                        android:id="@+id/textViewDistance"
+                        style="@style/TextViewForLabels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="20dp"
+                        android:layout_marginLeft="18dp"
+                        android:text="Distance: 0.21"
+                        android:textSize="22sp"
+                        android:textStyle="normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textViewAverageSpeed"
+            style="@style/TextViewForLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/relativeLayout1"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_margin="15dp"
+            android:layout_marginLeft="18dp"
+            android:text="Avg Speed: 0.14"
+            android:textSize="22sp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+</ScrollView>
