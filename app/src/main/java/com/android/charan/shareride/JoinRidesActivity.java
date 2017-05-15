@@ -45,7 +45,7 @@ public class JoinRidesActivity extends BaseActivity {
 	private FirebaseAuth mFirebaseAuth;
 	private String currentUserid;
 
-
+// commented on request
 	List<RideDetails> rideList = new ArrayList<RideDetails>();
 	ArrayList<RideDetailsMap> rideEntry = new ArrayList<RideDetailsMap>();
 	private LinearLayout progressBar;
